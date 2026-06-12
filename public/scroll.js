@@ -170,9 +170,10 @@
   // verification / robustness hook: apply any progress synchronously
   window.__applyScene = (p) => { renderedP = p; apply(p); if (window.GlobeScene && window.GlobeScene.renderNow) window.GlobeScene.renderNow(p); };
 
-  // ================= Tweaks =================
+  // ================= Tweaks (editor preview only — omit #tweak-toggle on public pages) =================
   const toggle = document.getElementById("tweak-toggle");
   const panel = document.getElementById("tweak-panel");
+  if (!toggle || !panel) return;
   toggle.addEventListener("click", () => panel.classList.toggle("hidden"));
   document.addEventListener("click", (e) => {
     if (!panel.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) panel.classList.add("hidden");
