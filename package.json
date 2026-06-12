@@ -7,7 +7,8 @@
   "scripts": {
     "sync": "IAM_ROOT=\"${IAM_ROOT:-../inneranimalmedia}\" bash scripts/sync-from-iam.sh",
     "build:studio": "npm --prefix studio run build",
-    "build": "npm run build:studio 2>/dev/null || node scripts/build-public.mjs",
+    "build": "node scripts/build-public.mjs",
+    "build:all": "npm run build:studio && node scripts/build-public.mjs",
     "deploy": "npx wrangler deploy",
     "dev": "npx wrangler dev",
     "check": "node --check worker/src/index.js"
