@@ -1,6 +1,6 @@
 /**
  * Lightweight auth for moviemode-service.
- * - Service binding / internal key from meauxcloud or inneranimalmedia
+ * - Service binding / internal key from inneranimalmedia main worker
  * - Session cookie passthrough when KV + D1 bindings match main platform
  */
 import { jsonResponse } from './http.js';
