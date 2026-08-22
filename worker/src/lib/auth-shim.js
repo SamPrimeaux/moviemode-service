@@ -9,7 +9,12 @@ const SERVICE_KEY_HEADER = 'x-iam-service-key';
 
 export async function getAuthUser(request, env) {
   const serviceKey = String(request.headers.get(SERVICE_KEY_HEADER) || '').trim();
-  const expected = String(env?.IAM_SERVICE_KEY || env?.INTERNAL_API_SECRET || '').trim();
+  // AGENTSAM_BRIDGE_KEY supersedes IAM_SERVICE_KEY / INTERNAL_API_SECRET as of 2026-08.
+  // Keep both accepted until the bridge key is confirmed provisioned on this Worker
+  // (wrangler secret put AGENTSAM_BRIDGE_KEY --name moviemode-service).
+  const expected = String(
+    env?.AGENTSAM_BRIDGE_KEY || env?.IAM_SERVICE_KEY || env?.INTERNAL_API_SECRET || '',
+  ).trim();
   if (serviceKey && expected && serviceKey === expected) {
     const ws = String(request.headers.get('X-Workspace-Id') || env.WORKSPACE_ID || '').trim();
     const tenant = String(request.headers.get('X-Tenant-Id') || env.TENANT_ID || '').trim();
